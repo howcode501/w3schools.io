@@ -1,0 +1,25 @@
+# Ignore local log files
+*.log
+# Ignore old/backup files
+*.old
+*~
+
+# Ignore test result/artifacts
+cookie.txt
+
+# Ignore downloaded vendor packages
+node_modules/
+!package-lock.json
+
+# IDE's
+/.idea
+/.vscode
+*.iml
+:Zone.Identifier
+
+# Keep environment variables out of version control
+.env
+.envrc
+
+# Ignore pem files
+tenant.pem

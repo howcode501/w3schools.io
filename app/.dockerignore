@@ -1,0 +1,15 @@
+.envrc*
+.git
+.gitattributes
+.gitignore
+.nvmrc
+.next
+.idea
+.yarnclean
+*.log
+*.old
+_archive
+helm
+build
+node_modules
+template.envrc

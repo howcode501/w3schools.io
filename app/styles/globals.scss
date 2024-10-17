@@ -1,0 +1,91 @@
+@import "./variables.scss";
+
+.secondaryText {
+  color: $secondaryTextColor !important;
+}
+
+.secondaryLink,
+.secondaryLink a:link,
+.secondaryLink a:active,
+.secondaryLink a:visited {
+  color: $secondaryTextColor !important;
+}
+
+.secondaryLink a:hover {
+  color: $secondaryTextColor !important;
+}
+
+.breadcrumb a,
+.breadcrumb a:link,
+.breadcrumb a:active,
+.breadcrumb a:visited {
+  text-decoration: none;
+  color: $primaryColor;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+  color: $primaryColor;
+}
+
+.variantAvatar {
+  width: $themeSpacing * 7;
+  height: $themeSpacing * 7;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.validator {
+  display: flex;
+  align-items: center;
+}
+
+.validation-item {
+  margin: 0 0 0 5px;
+}
+
+.validator svg {
+  width: 16px !important;
+}
+
+.MuiFormHelperText-root {
+  margin-left: 0 !important;
+}
+
+.hide-group .MuiDataGrid-toolbarContainer button:nth-child(3) {
+  display: none;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.pad-8 {
+  padding: 8px;
+}*/
+#footer-box-inside img {
+  min-width: 55% !important;
+  max-width: 55% !important;
+}
+
+.layout-head {
+  min-height: 60vh;
+}
+
+#footer-box-inside {
+  margin-bottom: 50px;
+}

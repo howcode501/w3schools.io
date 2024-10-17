@@ -1,0 +1,229 @@
+/*
+ * File Created for APP Inc
+ * Project: nextjs-spike
+ * User: ***
+ * Date: 8/25/2021
+ */
+
+import * as React from 'react'
+import { styled } from '@material-ui/core/styles'
+import Box from '@material-ui/core/Box'
+import MuiAppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Badge from '@material-ui/core/Badge'
+import Popper from '@material-ui/core/Popper'
+import MenuList from '@material-ui/core/MenuList'
+import Paper from '@material-ui/core/Paper'
+import Grow from '@material-ui/core/Grow'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+
+//Material Icons
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import HelpIcon from '@mui/icons-material/Help'
+import MenuCloseIcon from '@mui/icons-material/Menu'
+import { bindActionCreators } from 'redux'
+import { toggleLeftDrawer } from '../../store/reducers/dashboard/actions'
+import { connect } from 'react-redux'
+
+//Define our styles for the drawer
+const drawerWidth = 240
+
+const AppBar = styled(MuiAppBar, {
+	shouldForwardProp : (prop) => prop !== 'open'
+})(({ theme, open }) => ({
+	backgroundColor : process.env.PRIMARY_COLOR,
+	transition : theme.transitions.create([ 'margin', 'width' ], {
+		easing : theme.transitions.easing.sharp,
+		duration : theme.transitions.duration.leavingScreen
+	}),
+	...(open && {
+		width : `calc(100% - ${ drawerWidth }px)`,
+		marginLeft : `${ drawerWidth }px`,
+		backgroundColor : process.env.PRIMARY_COLOR,
+		transition : theme.transitions.create([ 'margin', 'width' ], {
+			easing : theme.transitions.easing.easeOut,
+			duration : theme.transitions.duration.enteringScreen
+		})
+	})
+}))
+
+function TopBar(props){
+
+	//Variables for Notifications Menu, Account Menu, and Help Menu PopOvers
+	const [ popover1, setPopover1 ] = React.useState({
+		                                                 anchorEl : null
+	                                                 })
+	const [ popover2, setPopover2 ] = React.useState({
+		                                                 anchorEl : null
+	                                                 })
+	const [ popover3, setPopover3 ] = React.useState({
+		                                                 anchorEl : null
+	                                                 })
+
+	return (
+		<Box sx={ { display : 'flex' } }>
+			<AppBar
+				position="fixed"
+			>
+				<Toolbar>
+					<IconButton
+						color="inherit"
+						aria-label="open drawer"
+						onClick={ () => props.toggleLeftDrawer(true) }
+						edge="start"
+						sx={ { mr : 2, ...(state.left && { display : 'none' }) } }
+					>
+						<MenuCloseIcon style={ { fontSize : 25 } }/>
+					</IconButton>
+
+					<Typography variant="h6" component="div" sx={ { flexGrow : 1 } }>
+						&nbsp;
+					</Typography>
+					<IconButton aria-label="show 17 new notifications"
+					            color="inherit"
+					            aria-describedby="notifications"
+					            aria-haspopup="true"
+					            onClick={ (e) => setPopover1({ ...popover1, anchorEl : e.currentTarget }) }
+					>
+						<Badge badgeContent={ 0 } color="secondary">
+							<NotificationsIcon style={ { fontSize : 40 } }/>
+						</Badge>
+					</IconButton>
+					<div>
+						<Popper
+							id="notifications"
+							open={ Boolean(popover1.anchorEl) }
+							onClose={ () => setPopover1({ ...popover1, anchorEl : null }) }
+							anchorEl={ popover1.anchorEl }
+							placement="top" // use index to find out it's placement, defaults to 'top'
+							transition>
+							{ ({ TransitionProps, placement }) => (
+								<Grow
+									{ ...TransitionProps }
+									style={ { transformOrigin : placement === 'bottom' ? 'center top' : 'center bottom' } }
+								>
+									<Paper>
+										<ClickAwayListener
+											onClickAway={ () => setPopover1({ ...popover1, anchorEl : null }) }>
+											<MenuList id="menu-list-grow">
+												Notifications List
+											</MenuList>
+										</ClickAwayListener>
+									</Paper>
+								</Grow>
+							) }
+						</Popper>
+					</div>
+					<IconButton
+						edge="end"
+						aria-label="account of current user"
+						color="inherit"
+						aria-describedby="account"
+						aria-haspopup="true"
+						onClick={ (e) => setPopover2({ ...popover2, anchorEl : e.currentTarget }) }
+					>
+						<AccountCircle style={ { fontSize : 40 } }/>
+					</IconButton>
+					<div>
+						<Popper
+							id="account"
+							open={ Boolean(popover2.anchorEl) }
+							onClose={ () => setPopover2({ ...popover2, anchorEl : null }) }
+							anchorEl={ popover2.anchorEl }
+							placement="top" // use index to find out it's placement, defaults to 'top'
+							transition>
+							{ ({ TransitionProps, placement }) => (
+								<Grow
+									{ ...TransitionProps }
+									style={ { transformOrigin : placement === 'bottom' ? 'center top' : 'center bottom' } }
+								>
+									<Paper>
+										<ClickAwayListener
+											onClickAway={ () => setPopover2({ ...popover2, anchorEl : null }) }>
+											<MenuList id="menu-list-grow">
+												{/*<List>
+												 <ListItem button key='Enabled Camera'>
+												 <ListItemText primary='Enabled Camera' />
+												 </ListItem>
+												 <ListItem button key='Enable Microphone'>
+												 <ListItemText primary='Enable Microphone' />
+												 </ListItem>
+												 </List>
+												 <Divider />*/ }
+												<List>
+													<ListItem button key="My Profile" component="a"
+													          href={ `/portal/appstore/user/${ userState.id }/edit` }>
+														<ListItemText primary="My Profile"/>
+													</ListItem>
+													<ListItem button key="Sign Out" onClick={ auth.logout }>
+														<ListItemText primary="Sign Out"/>
+													</ListItem>
+												</List>
+											</MenuList>
+										</ClickAwayListener>
+									</Paper>
+								</Grow>
+							) }
+						</Popper>
+					</div>
+					<IconButton
+						edge="end"
+						aria-label="Get Help"
+						color="inherit"
+						aria-describedby="help"
+						aria-haspopup="true"
+						onClick={ (e) => setPopover3({ ...popover3, anchorEl : e.currentTarget }) }
+					>
+						<HelpIcon style={ { fontSize : 40 } }/>
+					</IconButton>
+					<div mt={ 0 } mb={ 0 }>
+						<Popper
+							id="help"
+							open={ Boolean(popover3.anchorEl) }
+							onClose={ () => setPopover3({ ...popover3, anchorEl : null }) }
+							anchorEl={ popover3.anchorEl }
+							mt={ 0 } mb={ 0 }
+							placement="top" // use index to find out it's placement, defaults to 'top'
+							transition>
+							{ ({ TransitionProps, placement }) => (
+								<Grow
+									{ ...TransitionProps }
+									style={ { transformOrigin : placement === 'bottom' ? 'center top' : 'center bottom' } }
+									mt={ 0 } mb={ 0 }
+								>
+									<Paper mt={ 0 } mb={ 0 }>
+										<ClickAwayListener
+											onClickAway={ () => setPopover3({ ...popover3, anchorEl : null }) }>
+											<MenuList id="menu-list-grow" mt={ 0 } mb={ 0 }>
+												<List mt={ 0 } mb={ 0 }>
+													<ListItem mt={ 0 } mb={ 0 } button key="User Guide" component="a"
+													          href={ `http://thoughtcastowners.com/helpcenter` }>
+														<ListItemText primary="User Guide"/>
+													</ListItem>
+												</List>
+											</MenuList>
+										</ClickAwayListener>
+									</Paper>
+								</Grow>
+							) }
+						</Popper>
+					</div>
+				</Toolbar>
+			</AppBar>
+		</Box>
+	)
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleLeftDrawer : bindActionCreators(toggleLeftDrawer, dispatch)
+	}
+}
+
+export default connect((state) => state, mapDispatchToProps)(TopBar)

@@ -1,0 +1,6 @@
+node_modules
+.envrc*
+template.envrc
+.git
+.gitignore
+.gitattributes

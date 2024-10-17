@@ -1,0 +1,8 @@
+{
+  "slow": 1500,
+  "timeout": 20000,
+  "recursive": true,
+  "file": [
+    "test/prepare.js"
+  ]
+}

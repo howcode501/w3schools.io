@@ -1,0 +1,41 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+build/
+
+# misc
+.DS_Store
+.env.local
+.env.*.local
+.eslingcache
+:Zone.Identifier
+
+# IDE's
+/.idea
+/.vscode
+*.iml
+
+npm-debug.log*
+yarn-debug.log*
+yarn.lock
+.yarn/
+.next/
+/.envrc
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright_states/
+/screenshots/
+/playwright/.cache/
+adminStorageState.json
+userStorageState.json
+mspStorageState.json
